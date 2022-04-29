@@ -66,10 +66,15 @@ const usuariosPut = async (req = request, res = response) => {
     res.json(usuario)
 }
 
-const usuariosPatch = (req = request, res = response) => {
+const usuariosPatch = async (req = request, res = response) => {
 
-    res.status(201).json({
-        msg: 'PATCH API - Controlador'
+    const { id } = req.params
+
+    const userEnable = await Usuario.findByIdAndUpdate(id, { state: true }, { new: true })
+
+    res.json({
+        msg: 'El usuario ha sido habilitado correctamente!',
+        userEnable
     })
 }
 
@@ -81,11 +86,14 @@ const usuariosDelete = async (req = request, res = response) => {
 
     const userDisabled = await Usuario.findByIdAndUpdate(id, { state: false }, { new: true })
 
+    // const userAuthenticated = req.usuario
+
     res.json({
         // msg: 'El usuario ha sido eliminado correctamente de la BD',
         // usuarioEliminado,
         msg: 'El usuario ha sido deshabilitado correctamente!',
-        userDisabled
+        userDisabled,
+        // userAuthenticated
     })
 }
 

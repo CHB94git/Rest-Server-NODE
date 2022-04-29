@@ -34,13 +34,19 @@ const UsuarioSchema = Schema({
 
 
 UsuarioSchema.methods.toJSON = function () {
-    const { __v, password, ...usuario } = this.toObject()
-    return usuario
+    const { __v, password, _id, ...usuario } = this.toObject()
+    let uid = _id
+    let usuarioOrdenado = Object.assign({ uid }, usuario)
+    return usuarioOrdenado
 }
 
 
 module.exports = model('Usuario', UsuarioSchema)
 
 /* const Paciente = mongoose.model('Paciente', pacienteSchema)
+
+const { __v, password, _id, ...usuario } = this.toObject()
+    usuario.uid = _id
+    return usuario
 
 export default Paciente */
