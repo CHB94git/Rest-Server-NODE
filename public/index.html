@@ -34,7 +34,23 @@
 
             const body = { id_token: response.credential }
 
-            fetch('http://localhost:4000/api/auth/google', {
+            // Fetch Local - DEVELOPMENT
+            /* fetch('http://localhost:4000/api/auth/google', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+                .then(resp => resp.json())
+                .then(resp => {
+                    console.log(resp)
+                    localStorage.setItem('email', resp.usuario.email)
+                })
+                .catch(console.warn) */
+
+            // Fetch a Heroku - PRODUCTION
+            fetch('https://rest-server-node-07.herokuapp.com/api/auth/google', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
