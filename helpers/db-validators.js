@@ -1,6 +1,6 @@
-const Role = require('../models/role')
-const Usuario = require('../models/usuario')
+const { Categoria, Usuario, Role, Producto } = require('../models')
 
+// Funciones/Validadores custom por Usuario
 const isValidRole = async (role = '') => {
     const existRole = await Role.findOne({ role })
     if (!existRole) {
@@ -24,9 +24,28 @@ const existUserByID = async (id) => {
     }
 }
 
+// Funciones/Validadores custom por Categoría
+const existCategorieByID = async id => {
+    const existCategorie = await Categoria.findById(id)
+
+    if (!existCategorie) {
+        throw new Error(`La categoría con id: ${id}, no existe`)
+    }
+}
+
+const existProductByID = async id => {
+    const existProduct = await Producto.findById(id)
+
+    if (!existProduct) {
+        throw new Error(`El producto con id: ${id}, no existe`)
+    }
+}
+
 
 module.exports = {
     isValidRole,
     emailExists,
-    existUserByID
+    existUserByID,
+    existCategorieByID,
+    existProductByID
 }

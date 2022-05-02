@@ -10,7 +10,11 @@ const {
 } = require('../controllers/usuarios')
 
 
-const { isValidRole, emailExists, existUserByID } = require('../helpers/db-validators')
+const {
+    isValidRole,
+    emailExists,
+    existUserByID
+} = require('../helpers/db-validators')
 
 const {
     validateFields,
