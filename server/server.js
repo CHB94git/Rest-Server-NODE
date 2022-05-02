@@ -4,6 +4,7 @@ const { connectionDB } = require('../database/config')
 
 const {
     authRoutes,
+    busquedasRoutes,
     categoriaRoutes,
     usuariosRoutes,
     productosRoutes
@@ -17,6 +18,7 @@ class Server {
 
         this.paths = {
             auth: '/api/auth',
+            busquedas: '/api/buscar',
             categorias: '/api/categorias',
             productos: '/api/productos',
             usuarios: '/api/usuarios'
@@ -49,6 +51,7 @@ class Server {
 
     routes () {
         this.app.use(this.paths.auth, authRoutes)
+        this.app.use(this.paths.busquedas, busquedasRoutes)
         this.app.use(this.paths.categorias, categoriaRoutes,)
         this.app.use(this.paths.productos, productosRoutes)
         this.app.use(this.paths.usuarios, usuariosRoutes)
