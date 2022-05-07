@@ -5,9 +5,9 @@ const { Usuario } = require('../models')
 
 const usuariosGet = async (req = request, res = response) => {
 
-    const { limite = 20, from = 0 } = req.query
+    const { until = 20, from = 0 } = req.query
 
-    if (isNaN(limite) || isNaN(from)) {
+    if (isNaN(until) || isNaN(from)) {
         return res.status(400).json({
             msg: 'El(los) valor(es) específicados no son un número!'
         })
@@ -16,9 +16,10 @@ const usuariosGet = async (req = request, res = response) => {
     /* 
     // No es BUENA PRACTICA ENCADENAR PROMESAS CON AWAIT
     // Solo se hace sí una depende estrictamente de la otra
+    
     const usuarios = await Usuario.find({ state: true })
         .skip(Number(from))
-        .limit(Number(limite))
+        .limit(Number(until))
 
     const total = await Usuario.countDocuments({ state: true }) */
 
@@ -26,7 +27,7 @@ const usuariosGet = async (req = request, res = response) => {
         Usuario.countDocuments({ state: true }),
         Usuario.find({ state: true })
             .skip(Number(from))
-            .limit(Number(limite))
+            .limit(Number(until))
     ])
 
     res.json({
@@ -54,14 +55,14 @@ const usuariosPost = async (req = request, res = response) => {
 
 const usuariosPut = async (req = request, res = response) => {
     const { id } = req.params
-    const { _id, password, google, email, ...resto } = req.body
+    const { _id, password, google, email, ...data } = req.body
 
     if (password) {
         const salt = bcrypt.genSaltSync(10)
-        resto.password = bcrypt.hashSync(password, salt)
+        data.password = bcrypt.hashSync(password, salt)
     }
 
-    const usuario = await Usuario.findByIdAndUpdate(id, resto, { new: true })
+    const usuario = await Usuario.findByIdAndUpdate(id, data, { new: true })
 
     res.json(usuario)
 }
@@ -86,14 +87,12 @@ const usuariosDelete = async (req = request, res = response) => {
 
     const userDisabled = await Usuario.findByIdAndUpdate(id, { state: false }, { new: true })
 
-    // const userAuthenticated = req.usuario
 
     res.json({
         // msg: 'El usuario ha sido eliminado correctamente de la BD',
         // usuarioEliminado,
         msg: 'El usuario ha sido deshabilitado correctamente!',
         userDisabled,
-        // userAuthenticated
     })
 }
 

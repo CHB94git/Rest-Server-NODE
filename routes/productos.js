@@ -1,15 +1,15 @@
 const { Router } = require('express')
-const { check, body, param } = require('express-validator')
+const { body, param } = require('express-validator')
 
 const {
     createProduct,
+    deleteProduct,
     getProduct,
     getProducts,
-    updateProduct,
-    deleteProduct
-} = require('../controllers/productos')
+    updateProduct
+} = require('../controllers')
 
-const { existCategorieByID, existProductByID } = require('../helpers/db-validators')
+const { existCategorieByID, existProductByID } = require('../helpers')
 
 const { validateJWT, validateFields, isAdminRole } = require('../middlewares')
 
@@ -26,12 +26,14 @@ router.route('/')
         validateFields
     ], createProduct)
 
+
 // Obtener un Producto
 router.get('/:id', [
     param('id', 'No es un ID de Mongo válido').isMongoId(),
     param('id').custom(existProductByID),
     validateFields
 ], getProduct)
+
 
 // Actualizar un Producto
 router.put('/:id', [
@@ -42,6 +44,7 @@ router.put('/:id', [
     body('category').optional().custom(existCategorieByID),
     validateFields
 ], updateProduct)
+
 
 // Eliminar un Producto
 router.delete('/:id', [

@@ -1,11 +1,12 @@
-const { response, request } = require("express")
+const { response, request } = require('express')
+
 const { Producto } = require('../models')
 
 
-// Obtener todas las categorías
+// Obtener todas los productos
 const getProducts = async (req = request, res = response) => {
 
-    const { until = 10, from = 0 } = req.query
+    const { until = 20, from = 0 } = req.query
 
     if (isNaN(until) || isNaN(from)) {
         return res.status(400).json({
@@ -28,7 +29,7 @@ const getProducts = async (req = request, res = response) => {
     })
 }
 
-// Obtener una categoría en específico
+// Obtener un producto en específico
 const getProduct = async (req, res) => {
     const { id } = req.params
     const producto = await Producto.findById(id)

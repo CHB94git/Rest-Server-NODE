@@ -44,10 +44,10 @@ UsuarioSchema.methods.toJSON = function () {
 
 module.exports = model('Usuario', UsuarioSchema)
 
-/* const Paciente = mongoose.model('Paciente', pacienteSchema)
-
+/* 
 const { __v, password, _id, ...usuario } = this.toObject()
     usuario.uid = _id
     return usuario
-
+    
+const Paciente = mongoose.model('Paciente', pacienteSchema)
 export default Paciente */

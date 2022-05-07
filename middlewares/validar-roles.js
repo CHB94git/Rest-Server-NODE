@@ -12,7 +12,7 @@ const isAdminRole = (req, res = response, next) => {
 
     if (role !== 'ADMIN_ROLE') {
         return res.status(401).json({
-            msg: `${name} no es administrador - No puede hacer esto`
+            msg: `${name} no es administrador - No tiene los permisos para esta acción`
         })
     }
 
@@ -35,6 +35,7 @@ const haveRole = (...roles) => {
                 msg: `El servicio requiere uno de estos roles ${roles}`
             })
         }
+
         next()
     }
 }

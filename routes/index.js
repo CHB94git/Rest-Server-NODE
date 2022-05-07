@@ -1,13 +1,15 @@
 const authRoutes = require('./auth')
 const busquedasRoutes = require('./busqueda')
-const categoriaRoutes = require('./categorias')
+const categoriasRoutes = require('./categorias')
 const usuariosRoutes = require('./usuarios')
 const productosRoutes = require('./productos')
+const uploadsRoutes = require('./uploads')
 
 module.exports = {
     authRoutes,
     busquedasRoutes,
-    categoriaRoutes,
+    categoriasRoutes,
     usuariosRoutes,
-    productosRoutes
+    productosRoutes,
+    uploadsRoutes
 }

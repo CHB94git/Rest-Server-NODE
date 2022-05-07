@@ -1,11 +1,16 @@
-const authController = require('../controllers/auth')
-const categoriasController = require('../controllers/categorias')
-const usuariosController = require('../controllers/usuarios')
-const productosController = require('../controllers/productos')
+const authController = require('./auth')
+const categoriasController = require('./categorias')
+const usuariosController = require('./usuarios')
+const productosController = require('./productos')
+const busquedasController = require('./busqueda')
+const uploadsController = require('./uploads')
+
 
 module.exports = {
     ...authController,
     ...categoriasController,
     ...usuariosController,
-    ...productosController
+    ...productosController,
+    ...busquedasController,
+    ...uploadsController
 }

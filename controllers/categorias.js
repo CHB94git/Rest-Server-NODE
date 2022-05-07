@@ -1,11 +1,12 @@
-const { response, request } = require("express")
+const { response, request } = require('express')
+
 const { Categoria } = require('../models')
 
 
 // Obtener todas las categorías
 const categoriasGetAll = async (req = request, res = response) => {
 
-    const { until = 10, from = 0 } = req.query
+    const { until = 20, from = 0 } = req.query
 
     if (isNaN(until) || isNaN(from)) {
         return res.status(400).json({
@@ -29,10 +30,11 @@ const categoriasGetAll = async (req = request, res = response) => {
 
 // Obtener una categoría en específico
 const categoriaGetOne = async (req, res) => {
+
     const { id } = req.params
+
     const categoria = await Categoria.findById(id)
         .populate('user', 'name')
-
 
     res.json(categoria)
 }
